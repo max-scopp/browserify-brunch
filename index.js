@@ -87,7 +87,6 @@ class BrowserifyCompiler {
     const { data, path } = params;
 
     let __triggered = false;
-    loggy.info("Checking " + path)
     return new Promise((resolve, reject) => {
       // skip when dev mode
       if (this.watching) {
@@ -97,13 +96,11 @@ class BrowserifyCompiler {
 
       _.forEach(this.instances, (instance, compiledPath) => {
         if (!(instance.matcher(path)) || instance.running) {
-          loggy.info("Skipping" + path)
           resolve({ data, path })
           return
         }
 
         __triggered = true;
-        loggy.info("Compiling!!!!! " + path)
         instance.handleUpdate.call(instance, data, path, (err, js, path) => {
           resolve({ data: js, path })
         })

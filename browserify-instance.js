@@ -16,7 +16,6 @@ class BrowserifyInstance {
       debug: !this.data.main.production
     }
 
-    loggy.info('Creating BrowserifyInstance for', this.data.entry)
     _.forEach(this.data.instanceOptions.entries, (entry) => loggy.info('\t' + entry))
 
     options = _.assign(options, watchify.args, this.data.instanceOptions)
@@ -75,7 +74,7 @@ class BrowserifyInstance {
       writeSync(fd, js)
       closeSync(fd)
 
-      loggy.info("Wrote " + outFile)
+      loggy.info("Compiled " + outFile)
 
       this.running = false;
 
