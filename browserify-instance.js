@@ -62,7 +62,7 @@ class BrowserifyInstance {
       // `brunchConfig.files.javascripts`, they are not picked up by the
       // installed optimizers.
       if (this.data.main.production) {
-        let minified = uglify.minify(js, { fromString: true })
+        let minified = uglify.minify(js, { output: { comments: 'some' }, fromString: true })
         js = minified.code
       }
 

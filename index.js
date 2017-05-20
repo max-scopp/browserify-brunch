@@ -27,6 +27,7 @@ class BrowserifyCompiler {
     this._brunchConfig = brunchConfig;
     this.publicPath = this._brunchConfig.paths.public;
     this.watching = 'watch' in process.argv;
+    this.production = brunchConfig.isProduction;
 
     this.__initConfig();
     this.__initExtensions();
