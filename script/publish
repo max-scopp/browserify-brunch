@@ -3,4 +3,4 @@ set -e
 
 rm -rf lib/
 coffee --bare --output lib/ src/
-npm publish
+#npm publish
