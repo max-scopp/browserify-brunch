@@ -74,8 +74,8 @@ class BrowserifyCompiler {
     return new Promise((resolve, reject) => {
       _.forEach(this.config.bundles, (f) => {
         if (f.entry === file.path) {
-          if (f.matcher instanceof Array) {
-            resolve(f.matcher.concat(f.entry) || [f.entry])
+          if (f.entries instanceof Array) {
+            resolve(f.entries.concat(f.entry) || [f.entry])
             return
           }
         }

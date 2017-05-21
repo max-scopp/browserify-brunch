@@ -16,9 +16,9 @@ class BrowserifyInstance {
       debug: !this.data.main.production
     }
 
-    _.forEach(this.data.instanceOptions.entries, (entry) => loggy.info('\t' + entry))
+    _.forEach(this.data.entries, (entry) => loggy.info('\t' + entry))
 
-    options = _.assign(options, watchify.args, this.data.instanceOptions)
+    options = _.assign(options, watchify.args, this.data.instanceOptions, { entries: _.map(this.data.entries, (v) => sysPath.resolve(cwd, v)) })
 
     this.__w = browserify(sysPath.resolve(cwd, this.data.entry), options)
 
@@ -43,20 +43,22 @@ class BrowserifyInstance {
 
   handleUpdate (fileContents, filePath, cb) {
     this.running = true;
-    this.__w.bundle((err, js) => {
+    this.__w.bundle((function (err, js) {
       if (err || !js) {
-        if (!this.main.watching) {
-          throw err
-        }
-
         loggy.error("Browserify Error", err)
+
         if (cb instanceof Function) {
           cb(err || true, fileContents, filePath)
         }
+
+        throw err
       }
 
+      console.log(typeof js)
       // Browserify > 5.0.0 gives us a buffer object, must convert it to string.
       js = js.toString()
+
+      console.log(typeof js)
 
       // Since the files run through browserify are not defined in
       // `brunchConfig.files.javascripts`, they are not picked up by the
@@ -85,7 +87,7 @@ class BrowserifyInstance {
       if (cb instanceof Function) {
         cb(err, fileContents, filePath)
       }
-    })
+    }).bind(this))
   }
 }
 
