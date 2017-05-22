@@ -54,11 +54,8 @@ class BrowserifyInstance {
         throw err
       }
 
-      console.log(typeof js)
       // Browserify > 5.0.0 gives us a buffer object, must convert it to string.
       js = js.toString()
-
-      console.log(typeof js)
 
       // Since the files run through browserify are not defined in
       // `brunchConfig.files.javascripts`, they are not picked up by the
@@ -85,7 +82,7 @@ class BrowserifyInstance {
       }
 
       if (cb instanceof Function) {
-        cb(err, fileContents, filePath)
+        cb(err, js, filePath)
       }
     }).bind(this))
   }
