@@ -53,6 +53,9 @@ class BrowserifyInstance {
 
         // throwing can hurt people
         // throw err
+
+        // but doing nothing is also bad
+        return
       }
 
       // Browserify > 5.0.0 gives us a buffer object, must convert it to string.
