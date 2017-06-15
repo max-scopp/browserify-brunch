@@ -51,7 +51,8 @@ class BrowserifyInstance {
           cb(err || true, fileContents, filePath)
         }
 
-        throw err
+        // throwing can hurt people
+        // throw err
       }
 
       // Browserify > 5.0.0 gives us a buffer object, must convert it to string.
